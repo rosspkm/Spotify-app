@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/static/styles/navbar.css">
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/auth.css">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <title>Project 1</title>
+</head>
+
+<body>
+    <ul class="nav_bar">
+        <div class="wrapper">
+            <div class="left">
+                <li><a href="/">Home</a></li>
+            </div>
+            <div class="right">
+                <li><a class="active" href="/signup">Sign Up</a></li>
+                <li><a href="/login">Login</a></li>
+            </div>
+        </div>
+    </ul>
+    <h3 style="text-align:center; color: white;">Sign Up</h3>
+    <form method="POST" action="/signup">
+        <div class="container">
+            <label for="username"><b>Username</b></label>
+            <input type="text" placeholder="Enter Username" name="username" required>
+
+            <label for="password"><b>Password</b></label>
+            <input type="password" placeholder="Enter Password" name="password" required>
+            <ul id="flashes" class="flashes">
+                {% with messages = get_flashed_messages() %} {% if messages %}
+                <ul id="flashes" class="flashes">
+                    {% for message in messages %}
+                    <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+                {% endif %} {% endwith %}
+            </ul>
+            <input type="submit" name="signup">
+        </div>
+    </form>
+</body>
+
+</html>

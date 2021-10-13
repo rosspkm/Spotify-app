@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/dropdown.css">
+    <link rel="stylesheet" href="/static/styles/navbar.css">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Project 1</title>
+</head>
+
+<body>
+    <ul class="nav_bar">
+        <div class="wrapper">
+            <div class="left">
+                <li><a class="active" href="/">Home</a></li>
+                {% if logged_in == true %}
+                <li><a href="/discovery">My Discovery</a></li>
+                {% endif %}
+            </div>
+            <div class="right">
+                <li class="search-container">
+                    <form action="/lookup" method="POST">
+                        <select name="type">
+                            <option value="">Choose</option>
+                            <option value="track">Song</option>
+                            <option value="artist">Artist</option>
+                        </select>
+                        <input type="text" placeholder="Search.." name="search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </li>
+                {% if logged_in == true %}
+                <li><a href="/logout">Logout</a></li>
+                {% else %}
+                <li><a href="/signup">Sign Up</a></li>
+                <li><a href="/login">Login</a></li>
+                {% endif %}
+            </div>
+        </div>
+    </ul>
+    {% if is_empty == true %}
+    <div class="wrapper">
+        <div class="center">
+            <h1 style="color: #1DB954;">Nothing to display</h1>
+        </div>
+    </div>
+    {% else %}
+    {% if search_type == "artist" %}
+    <ul class="tree">
+        {% for artist in music_search %}
+        <li class="section">
+            <input type="checkbox" id="{{artist}}" />
+            <label for="{{artist}}">{{artist}}</label>
+        <li><img src="{{music_search[artist]['artist_image']}}" alt="{{artist}} image" width="150" height="150"></li>
+        <ul>
+            <li>Artist ID: {{music_search[artist]['artist_id']}}</li>
+            {% for song in music_search[artist]['songs'] %}
+            <li class="section">
+                <input type="checkbox" id="{{song}}" />
+                <label for="{{song}}">{{song}}</label>
+                <ul>
+                    <li><img src="{{music_search[artist]['songs'][song]['image']}}" alt="Song Art" width="250"
+                            height="250">
+                    </li>
+                    <li>
+                        <figure>
+                            <div class="fig" , text>
+                                <figcaption>
+                                    Listen to {{song}} preview
+                                </figcaption>
+                            </div>
+                            <audio controls>
+                                <source src="{{music_search[artist]['songs'][song]['song_url']}}">
+                            </audio>
+                        </figure>
+                    </li>
+                    <li><a href="{{music_search[artist]['songs'][song]['genius_link']}}" target="_blank">Lyrics</a>
+                    </li>
+                </ul>
+            </li>
+            {% endfor %}
+        </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    {% if logged_in == true %}
+    <div class="center">
+        <h3 style="color: white; float: center;">Add or remove an artist</h3>
+    </div>
+    <div class="center">
+        <div class="search-container">
+            <form action="/addArtist" method="POST">
+                <select name="task">
+                    <option value="">Choose</option>
+                    <option value="insert">Add</option>
+                    <option value="remove">Remove</option>
+                </select>
+                <input type="text" placeholder="Enter Artist ID" name="add">
+                <button type="submit"><i class="fa fa-search"></i></button>
+            </form>
+        </div>
+        <ul id="flashes" class="flashes">
+            {% with messages = get_flashed_messages() %} {% if messages %}
+            <ul id="flashes" class="flashes">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %} {% endwith %}
+        </ul>
+    </div>
+    {% endif %}
+    {% else %}
+    <ul class="tree">
+        {% for song in music_search %}
+        <li class="section">
+            <input type="checkbox" id="{{song}}" />
+            <label for="{{song}}">{{song}}</label>
+        <li><img src="{{music_search[song]['song_art']}}" alt="{{song}} image" width="150" height="150"></li>
+        <li>{{music_search[song]['artists']}}</li>
+        <li>
+            <figure>
+                <div class="fig" , text>
+                    <figcaption>
+                        Listen to {{song}} preview
+                    </figcaption>
+                </div>
+                <audio controls>
+                    <source src="{{music_search[song]['preview_url']}}">
+                </audio>
+            </figure>
+        </li>
+        <ul>
+            <li class="section">
+                <input type="checkbox" id="{{song}} info" />
+                <label for="{{song}} info">{{song}} info</label>
+                <ul>
+                    <li>Release type: {{music_search[song]['album_type']}}</li>
+                    <li>Release date: {{music_search[song]['release_date']}}</li>
+                    <li>Song length: {{music_search[song]['duration']}} seconds</li>
+                </ul>
+            </li>
+        </ul>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endif %}
+</body>
+
+</html>

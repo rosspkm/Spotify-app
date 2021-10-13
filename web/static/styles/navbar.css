@@ -1,0 +1,96 @@
+.nav_bar {
+    overflow: hidden;
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: black;
+}
+.wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+.left {
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.right {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.nav_bar li {
+    list-style-type: none;
+}
+
+.nav_bar li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+.nav_bar li a:hover:not(.active) {
+    background-color: white;
+    color: black;
+}
+
+.nav_bar .active {
+    background-color: #1DB954;
+}
+
+.search-container input[type=text] {
+    padding: 6px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    color: #1DB954;
+}
+
+.search-container button {
+    float: right;
+    padding: 6px 10px;
+    margin-top: 8px;
+    margin-right: 16px;
+    background: #ccc;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+.search-container select {
+    float: left;
+    padding: 6px 10px;
+    margin-top: 8px;
+    font-size: 17px;
+    border: none;
+    cursor: pointer;
+}
+
+.search-container button:hover {
+    background: #1DB954;
+}
+
+@media screen and (max-width: 600px) {
+    .nav_bar a,
+    .search-container input[type=text],
+    .search-container button, select {
+        display: block;
+        text-align: left;
+        width: 100%;
+        margin: 0;
+        padding: 14px;
+    }
+    .search-container input[type=text] {
+        border: 1px solid white;
+    }
+}

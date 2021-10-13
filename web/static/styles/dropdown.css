@@ -1,0 +1,81 @@
+.table_head {
+    margin-top: 5%;
+    text-align: center;
+    color: white;
+}
+
+figure {
+    margin: 0;
+}
+
+.tree, .section ul {
+list-style: none;
+padding: 0;
+margin-bottom: 10%;
+margin-right: 10%;
+margin-left: 10%;
+}
+
+.tree {
+background: black;
+border: 1px solid #1DB954;
+}
+
+.tree li {
+padding: 15px 10px;
+border-bottom: 1px solid #1DB954;
+}
+
+.tree li:last-child {
+border: 0;
+}
+
+.section ul { 
+    display: none; 
+}
+
+.section input:checked ~ ul { 
+    display: block;
+}
+
+.section input[type=checkbox] { 
+    display: none;
+}
+
+.section { 
+position: relative; 
+padding-left: 35px !important;
+}
+
+.section label:after {
+content: "\0002B";
+position: absolute;
+top: 0; left: 0;
+padding: 10px;
+text-align: center;
+font-size: 30px;
+color: #1DB954;
+transition: all 0.5s;
+}
+
+.section input:checked ~ label:after { 
+color: #249663;
+transform: rotate(45deg);
+}
+
+.section ul { 
+    margin-top: 10px; 
+}
+.section ul li { 
+    color: white; 
+}
+
+.tree {
+font-family: arial, sans-serif;
+font-size: 18px;
+color: white;
+}
+
+.fig {
+margin-left: 1px;
+}

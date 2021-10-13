@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link rel="stylesheet" href="/static/styles/style.css">
+    <link rel="stylesheet" href="/static/styles/dropdown.css">
+    <link rel="stylesheet" href="/static/styles/navbar.css">
+    <link rel="shortcut icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>Project 1</title>
+</head>
+
+<body>
+    <ul class="nav_bar">
+        <div class="wrapper">
+            <div class="left">
+                <li><a class="active" href="/">Home</a></li>
+                {% if logged_in == true %}
+                <li><a href="/discovery">My Discovery</a></li>
+                {% endif %}
+            </div>
+            <div class="right">
+                <li class="search-container">
+                    <form action="/lookup" method="POST">
+                        <select name="type">
+                            <option value="">Choose</option>
+                            <option value="track">Song</option>
+                            <option value="artist">Artist</option>
+                        </select>
+                        <input type="text" placeholder="Search.." name="search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </li>
+                {% if logged_in == true %}
+                <li><a href="/logout">Logout</a></li>
+                {% else %}
+                <li><a href="/signup">Sign Up</a></li>
+                <li><a href="/login">Login</a></li>
+                {% endif %}
+            </div>
+        </div>
+    </ul>
+    <div class="web_head">
+        <h1>Ross Miller spotify discovery app</h1>
+    </div>
+    <div class="table_head">
+        <h1> Weekly discovery</h1>
+    </div>
+    <ul class="tree">
+        {% for song in data %}
+        <li class="section">
+            <input type="checkbox" id="{{data[song]['name']}}" />
+            <label for="{{data[song]['name']}}">{{data[song]['name']}}</label>
+            <ul>
+                <li><img src="{{data[song]['image']}}" alt="{{data[song]['name']}} image" width="150" height="150"></li>
+                <li>{{data[song]['artists']}}</li>
+                <li>
+                    <figure>
+                        <div class="fig" , text>
+                            <figcaption>
+                                Listen to {{data[song]['name']}} preview
+                            </figcaption>
+                        </div>
+                        <audio controls>
+                            <source src="{{data[song]['preview_url']}}">
+                        </audio>
+                    </figure>
+                </li>
+            </ul>
+        </li>
+        {% endfor %}
+    </ul>
+</body>
+
+</html>
